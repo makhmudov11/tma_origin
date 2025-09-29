@@ -5,7 +5,6 @@ from apps.utils.other_model import *
 
 
 class Admin(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     image = models.ImageField(upload_to='users/', null=True)
     type = models.CharField(max_length=50, null=True)
     password = models.CharField(max_length=255)
@@ -24,7 +23,6 @@ class Admin(BaseCreateUpdateModel):
 
 
 class User(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     image = models.ImageField(upload_to='users/', null=True)
     password = models.CharField(max_length=255)
     full_name = models.CharField(max_length=255, null=True)
@@ -40,7 +38,6 @@ class User(BaseCreateUpdateModel):
 
 
 class UserCollection(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='collection_user')
     have_attempt = models.IntegerField()
     collection = models.ForeignKey('qa.Collection', on_delete=models.SET_NULL, null=True, related_name='user_collection')
@@ -54,7 +51,6 @@ class UserCollection(BaseCreateUpdateModel):
 
 
 class UserInfo(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, related_name='user_info')
     hemis_id = models.CharField(max_length=255)
     group = models.ForeignKey('department.Group', on_delete=models.SET_NULL, null=True, related_name='group_user_info')
@@ -68,7 +64,6 @@ class UserInfo(BaseCreateUpdateModel):
 
 
 class UserLog(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     hemis_id = models.CharField(max_length=128)
     fullname = models.CharField(max_length=64)
     group = models.ForeignKey('department.Group', on_delete=models.SET_NULL, null=True, related_name='group_user_log')
@@ -86,7 +81,6 @@ class UserLog(BaseCreateUpdateModel):
 
 
 class UserResult(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     user_id = models.UUIDField()
     collection_id = models.UUIDField()
     hemis_id = models.CharField(max_length=64)
@@ -110,7 +104,6 @@ class UserResult(BaseCreateUpdateModel):
 
 
 class UserResultAnswerData(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     user_result = models.ForeignKey(UserResult, on_delete=models.SET_NULL,
                                     null=True, related_name='user_result_answer_data')
     question_name = models.CharField(max_length=255, blank=True, null=True)

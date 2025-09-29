@@ -4,7 +4,6 @@ from apps.utils.base import BaseCreateUpdateModel
 
 
 class Science(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     name = models.CharField(max_length=100)
     since_id = models.IntegerField(blank=True, null=True)
 
@@ -17,7 +16,6 @@ class Science(BaseCreateUpdateModel):
 
 
 class Course(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     stage = models.IntegerField(default=1)
 
     class Meta:
@@ -28,7 +26,6 @@ class Course(BaseCreateUpdateModel):
 
 
 class Faculty(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     name = models.CharField(max_length=145)
 
     class Meta:
@@ -39,7 +36,6 @@ class Faculty(BaseCreateUpdateModel):
 
 
 class Group(BaseCreateUpdateModel):
-    id = models.UUIDField(primary_key=True)
     name = models.CharField(max_length=150)
     course = models.ForeignKey(Course, models.SET_NULL, null=True, related_name='course_groups')
     faculty = models.ForeignKey(Faculty, models.SET_NULL, null=True, related_name='faculty_groups')
