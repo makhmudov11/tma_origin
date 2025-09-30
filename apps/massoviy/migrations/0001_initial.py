@@ -13,59 +13,48 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name='PDFFile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted_at', models.DateTimeField(blank=True, null=True)),
-                ('stage', models.IntegerField(default=1)),
+                ('file', models.FileField(upload_to='file/question/')),
             ],
             options={
-                'db_table': 'course',
+                'db_table': 'pdffile',
             },
         ),
         migrations.CreateModel(
-            name='Faculty',
+            name='Question',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted_at', models.DateTimeField(blank=True, null=True)),
-                ('name', models.CharField(max_length=145)),
+                ('text', models.CharField(max_length=250, null=True)),
+                ('image', models.ImageField(null=True, upload_to='qa/questions/')),
+                ('file', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='file_questions', to='massoviy.pdffile')),
             ],
             options={
-                'db_table': 'faculty',
+                'abstract': False,
             },
         ),
         migrations.CreateModel(
-            name='Science',
+            name='Answer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted_at', models.DateTimeField(blank=True, null=True)),
-                ('name', models.CharField(max_length=100)),
-                ('since_id', models.IntegerField(blank=True, null=True)),
+                ('text', models.CharField(max_length=100, null=True)),
+                ('label', models.CharField(max_length=10, null=True)),
+                ('image', models.ImageField(null=True, upload_to='qa/answers/')),
+                ('in_correct', models.BooleanField(default=False)),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='question_answers', to='massoviy.question')),
             ],
             options={
-                'db_table': 'science',
-                'ordering': ['-since_id'],
-            },
-        ),
-        migrations.CreateModel(
-            name='Group',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('deleted_at', models.DateTimeField(blank=True, null=True)),
-                ('name', models.CharField(max_length=150)),
-                ('course', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='course_groups', to='department.course')),
-                ('faculty', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='faculty_groups', to='department.faculty')),
-            ],
-            options={
-                'db_table': 'group',
+                'abstract': False,
             },
         ),
     ]

@@ -18,7 +18,7 @@ class Admin(BaseCreateUpdateModel):
         ordering = ['-id']
 
     def __str__(self):
-        return self.full_name or self.email_address or self.id
+        return self.full_name or self.email_address or self.pk
 
 
 
@@ -34,7 +34,7 @@ class User(BaseCreateUpdateModel):
         ordering = ['-id']
 
     def __str__(self):
-        return self.full_name or self.email_address or self.id
+        return self.full_name or self.email_address or self.pk
 
 
 class UserCollection(BaseCreateUpdateModel):
@@ -46,7 +46,7 @@ class UserCollection(BaseCreateUpdateModel):
         db_table = 'user_collection'
 
     def __str__(self):
-        return self.id
+        return self.pk
 
 
 
@@ -60,7 +60,7 @@ class UserInfo(BaseCreateUpdateModel):
         db_table = 'user_info'
 
     def __str__(self):
-        return self.id
+        return self.pk
 
 
 class UserLog(BaseCreateUpdateModel):
@@ -117,4 +117,4 @@ class UserResultAnswerData(BaseCreateUpdateModel):
         db_table = 'user_result_answer_data'
 
     def __str__(self):
-        return self.id
+        return self.pk

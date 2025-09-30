@@ -43,3 +43,5 @@ class Group(BaseCreateUpdateModel):
     class Meta:
         db_table = 'group'
 
+    def __str__(self):
+        return self.name

@@ -19,7 +19,7 @@ class Answer(BaseCreateUpdateModel):
         ordering = ['-id']
 
     def __str__(self):
-        return self.text or self.id
+        return self.text or self.pk
 
 
 class Question(BaseCreateUpdateModel):
